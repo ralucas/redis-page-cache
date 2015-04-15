@@ -1,7 +1,7 @@
 var fs = require('fs');
 var md5 = require('crypto').createHash('md5');
 
-module.exports = function(client, key, file) {
+module.exports = function(client, key, file, callback) {
   var hash;
 
   return function() {
@@ -10,21 +10,22 @@ module.exports = function(client, key, file) {
       hash = md5.digest('hex');
     }
    
-    client.exists(key, function(err, r) {
-      if (err) throw new Error(err);
+    client.exists(hash, function(err, r) {
+      if (err) callback(err);
       if (r !== 0) {
         client.get(hash, function(err, contents) {
-          if (err) throw new Error(err); 
-          return contents;
+          if (err) callback(err); 
+          return callback && callback(null, contents);
         });
       } else {
         fs.readFile(file, function(err, contents) {
-          if (err) throw new Error(err); 
+          if (err) callback(err); 
           var output = contents.toString();
           client.set(key, output);  
-          return output;
+          return callback && callback(null, output);
         });
       }
     });
-  };
+  }();
+
 };

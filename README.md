@@ -7,6 +7,7 @@ Redis Page Cache Module
 Requires a redis client
 
 ###Example:
+Using express
 
 ```javascript
 var redis = require('redis');
@@ -17,10 +18,14 @@ var client = redis.createClient();
 
 app.get('/test', function(req, res) {
 
-  var page = redisPageCache(client, 'myUniqueKey', 'path/to/file');
+  redisPageCache(client, 'myUniqueKey', 'path/to/file', function(err, html) {
+    if (err) {
+      //handle error
+    } else {
+      res.send(html);  
+    }
+  });
   
-  res.send(page);  
-
 });
 ```
 
