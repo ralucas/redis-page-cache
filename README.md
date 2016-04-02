@@ -18,7 +18,13 @@ var client = redis.createClient();
 
 app.get('/test', function(req, res) {
 
-  redisPageCache(client, 'myUniqueKey', 'path/to/file', function(err, html) {
+  var options = {
+    client: client,
+    key: 'myUniqueKey',
+    file: 'path/to/file'
+  };
+
+  redisPageCache(options, function(err, html) {
     if (err) {
       //handle error
     } else {

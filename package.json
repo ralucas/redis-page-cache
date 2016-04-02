@@ -1,11 +1,19 @@
 {
   "name": "redis-page-cache",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Page Cache using redis",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "homepage": "https://github.com/ralucas/redis-page-cache",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ralucas/redis-page-cache.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ralucas/redis-page-cache/issues"
+  },
+  "author": "R.A. Lucas",
+  "license": "MIT"
 }
